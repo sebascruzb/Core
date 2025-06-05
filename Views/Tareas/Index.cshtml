@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MiniCore.Models.Tarea>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-action="Index" asp-controller="Tareas" method="get">
+    <div class="form-row">
+        <div class="col-md-3">
+            <label for="fechaInicio">Fecha de Inicio:</label>
+            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" value="@((ViewData["fechaInicio"] as DateOnly?)?.ToString("yyyy-MM-dd"))" required>
+        </div>
+        <div class="col-md-3">
+            <label for="fechaFin">Fecha de Fin:</label>
+            <input type="date" class="form-control" id="fechaFin" name="fechaFin" value="@((ViewData["fechaFin"] as DateOnly?)?.ToString("yyyy-MM-dd"))" required>
+        </div>
+        <div class="col-md-3">
+            <label>&nbsp;</label>
+            <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombredelatarea)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechadeInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiempoEstimado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoProgreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Empleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proyecto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombredelatarea)
+                </td>
+                <td>
+                    @if (item.FechadeInicio.HasValue)
+                    {
+                        <text>@item.FechadeInicio.Value.ToString("dd/MM/yyyy")</text>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TiempoEstimado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstadoProgreso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Empleado.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proyecto.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

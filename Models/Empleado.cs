@@ -13,3 +13,4 @@ public partial class Empleado
 
     public virtual ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
 }
+
